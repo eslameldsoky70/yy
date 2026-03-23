@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Quran API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: quran
+    description: Quran data operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /quran/surahs:
+    get:
+      operationId: getSurahs
+      tags: [quran]
+      summary: Get list of all surahs
+      responses:
+        "200":
+          description: List of surahs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Surah"
+  /quran/surahs/{surahNumber}:
+    get:
+      operationId: getSurah
+      tags: [quran]
+      summary: Get a surah with all its ayahs
+      parameters:
+        - name: surahNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Surah with ayahs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SurahDetail"
+        "404":
+          description: Surah not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /quran/search:
+    get:
+      operationId: searchQuran
+      tags: [quran]
+      summary: Search Quran text
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SearchResult"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Surah:
+      type: object
+      properties:
+        number:
+          type: integer
+        name:
+          type: string
+        englishName:
+          type: string
+        englishNameTranslation:
+          type: string
+        numberOfAyahs:
+          type: integer
+        revelationType:
+          type: string
+      required:
+        - number
+        - name
+        - englishName
+        - englishNameTranslation
+        - numberOfAyahs
+        - revelationType
+    Ayah:
+      type: object
+      properties:
+        number:
+          type: integer
+        numberInSurah:
+          type: integer
+        text:
+          type: string
+        juz:
+          type: integer
+        page:
+          type: integer
+      required:
+        - number
+        - numberInSurah
+        - text
+        - juz
+        - page
+    SurahDetail:
+      type: object
+      properties:
+        number:
+          type: integer
+        name:
+          type: string
+        englishName:
+          type: string
+        englishNameTranslation:
+          type: string
+        numberOfAyahs:
+          type: integer
+        revelationType:
+          type: string
+        ayahs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ayah"
+      required:
+        - number
+        - name
+        - englishName
+        - englishNameTranslation
+        - numberOfAyahs
+        - revelationType
+        - ayahs
+    SearchResult:
+      type: object
+      properties:
+        surahNumber:
+          type: integer
+        surahName:
+          type: string
+        ayahNumber:
+          type: integer
+        text:
+          type: string
+      required:
+        - surahNumber
+        - surahName
+        - ayahNumber
+        - text
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

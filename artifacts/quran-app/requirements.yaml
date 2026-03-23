@@ -1,0 +1,17 @@
+packages:
+  "framer-motion": "For elegant page transitions and staggered list animations"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for safely merging Tailwind CSS classes"
+
+images:
+  - path: "artifacts/quran-app/public/images/hero-bg.png"
+    description: "Elegant, subtle Islamic geometric pattern background in very light cream and muted gold, seamless texture style, highly detailed but low contrast for readability."
+    aspect_ratio: "16:9"
+  - path: "artifacts/quran-app/public/images/bismillah.png"
+    description: "Beautiful Arabic calligraphy of 'Bismillah ir-Rahman ir-Rahim' (In the name of God, the Most Gracious, the Most Merciful) in metallic gold on a fully transparent background."
+    aspect_ratio: "16:9"
+
+notes:
+  - The application assumes an RTL layout (dir="rtl") globally.
+  - Using wouter for routing.
+  - Using @workspace/api-client-react for data hooks.

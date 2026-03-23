@@ -1,0 +1,14 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "bVZWUTib3zwcwFeNnEwfl"
+uri = "file://quran-reel-project.tar.gz"
+type = "unspecified"
+title = "quran-reel-project.tar.gz — كود المشروع كاملاً"
+
+[[outputs]]
+id = "IMlGigJ_nOE54_Oa5OeIa"
+uri = "file://artifacts/quran-app/public/islam-reels.tar.gz"
+type = "unspecified"
+title = "islam-reels.tar.gz — ملفات المشروع كاملة"
